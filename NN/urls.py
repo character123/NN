@@ -19,7 +19,7 @@ from Web import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',views.home,name = 'home'),
+    url(r'^$',views.login,name = 'home'),
     url(r'^input/$',views.input,name = 'input'),
     url(r'^output/$',views.output,name = 'output'),
     url(r'^register/$',views.regist,name = 'register'),

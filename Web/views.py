@@ -44,6 +44,10 @@ def regist(request):
 
 @csrf_exempt
 def login(request):
+    # if user has logined
+    if request.COOKIES.has_key("username"):
+        return render_to_response("home.html")
+    # if user has not logined
     if request.method == "POST":
         uf = UserForm(request.POST)
         if uf.is_valid():
@@ -52,15 +56,19 @@ def login(request):
 
             user = User.objects.filter(username__exact = username,password__exact = password)
             if user:
+                # login successfully
                 response = render_to_response('home.html')
-
                 response.set_cookie('username',username,3600)
                 return response
             else:
-                return HttpResponse("login error")
+                # login unsuccessfully
+                return render_to_response("login.html")
+        else:
+            return render_to_response("home.html")
     else:
         uf = UserForm()
     return render_to_response('login.html')
+
 
 def index(request):#login successful
     username = request.COOKIES.get('username','')
