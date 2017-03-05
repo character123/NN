@@ -31,14 +31,16 @@ def home(request):
 @csrf_exempt
 def regist(request):
     if request.method == 'POST':
+        print 0
         uf = UserForm(request.POST)
         if uf.is_valid():
             username = uf.cleaned_data['username']
             password = uf.cleaned_data['password']
-
+            print 1
             User.objects.create(username = username,password = password)
             return render_to_response("input.html")#register successful
     else:
+        print 2
         uf = UserForm()
     return render_to_response('login.html')
 
